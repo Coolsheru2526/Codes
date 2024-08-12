@@ -1,5 +1,8 @@
-#include<iostream>
 #include<stack>
+#include <iostream>
+#include <vector>
+#include <stack>
+
 using namespace std;
 
 class Stack{
@@ -56,44 +59,70 @@ class Stack{
 };
 
 
-int  main()
-{
 
+vector<int> nextGreaterElement(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> nge(n, -1);  // Initialize NGE with -1
+    stack<int> st;
 
-    Stack st(5);
-    st.push(10);
-    st.push(5);
-    cout<<st.peek()<<endl;
-    st.pop();
-    cout<<st.peek()<<endl;
-    st.pop();
-     cout<<st.peek()<<endl;
-    if(st.isempty())
-    {
-        cout<<"Stack is Empty"<<endl;
-    }else{
-        cout<<"Stack is Not Empty"<<endl;
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && nums[st.top()] < nums[i]) {
+            nge[st.top()] = nums[i];
+            st.pop();
+        }
+        st.push(i);
     }
-    /*
-    //creation of stack
-    stack<int>s;
-    //pushing element in stack
-    s.push(5);
-    s.push(10);
-    //using top() to read what is at the top
-    cout<<s.top()<<endl;
-    cout<<s.size()<<endl;
-    //poping the topmost element 
-    s.pop();
-    s.pop();
-    //using empty function to check whether string is empty or not
-    if(s.empty())
-    {
-        cout<<"Stack is empty"<<endl;
-    }
-    else{
-        cout<<"Stack is not empty"<<endl;
-    }*/
 
-    return 0;
+    return nge;
+}
+vector<int> previousGreaterElement(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> pge(n, -1);  // Initialize PGE with -1
+    stack<int> st;
+
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && st.top() <= nums[i]) {
+            st.pop();
+        }
+        if (!st.empty()) {
+            pge[i] = st.top();
+        }
+        st.push(nums[i]);
+    }
+
+    return pge;
+}
+
+vector<int> nextSmallerElement(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> nse(n, -1);  // Initialize NSE with -1
+    stack<int> st;
+
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && nums[st.top()] > nums[i]) {
+            nse[st.top()] = nums[i];
+            st.pop();
+        }
+        st.push(i);
+    }
+
+    return nse;
+}
+
+vector<int> previousSmallerElement(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> pse(n, -1);  // Initialize PSE with -1
+    stack<int> st;
+
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && st.top() >= nums[i]) {
+            st.pop();
+        }
+        if (!st.empty()) {
+            pse[i] = st.top();
+        }
+        st.push(nums[i]);
+    }
+
+    return pse;
 }
