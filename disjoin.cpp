@@ -1,6 +1,10 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
 class Disjoint{
-   vector<int>rank,parent,size;
+   vector<int> rank,parent,size;
    public:
    Disjoint(int n)
    {
